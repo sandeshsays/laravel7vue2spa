@@ -3,10 +3,10 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">DASHBOARD</div>
+                    <div class="card-header">Profile</div>
 
                     <div class="card-body">
-                        I'm a dashboard component.
+                        I'm a profile component.
                     </div>
                 </div>
             </div>

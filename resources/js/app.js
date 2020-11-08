@@ -8,19 +8,13 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-import VueRouter from 'vue-router'
+import router from './router'
 
-Vue.use(VueRouter)
+import { Form, HasError, AlertError } from 'vform'
 
-let routes = [
-    { path: '/dashboard', component: require('./components/Dashboard.vue').default},
-    { path: '/profile', component: require('./components/Profile.vue').default}
-  ]
-
-  const router = new VueRouter({
-    mode:'history',
-    routes // short for `routes: routes`
-  })
+window.Form = Form
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 /**
  * The following block of code may be used to automatically register your

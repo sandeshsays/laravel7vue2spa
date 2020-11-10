@@ -11,6 +11,9 @@ window.Vue = require('vue');
 import router from './router'
 import moment from 'moment'
 
+import Gate from './Gate'
+Vue.prototype.$gate = new Gate(window.user);
+
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {

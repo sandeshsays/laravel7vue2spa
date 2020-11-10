@@ -170,27 +170,28 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </router-link>
               </li>
 
+            @can('isAdmin')
             <li class="nav-item has-treeview menu-close">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-cogs"></i>
-              <p>
-                Settings
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
                 <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
+                <i class="nav-icon fas fa-cogs"></i>
+                <p>
+                    Settings
+                    <i class="right fas fa-angle-left"></i>
+                </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Inactive Page</p>
-                </a>
-              </li>
+                <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Active Page</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Inactive Page</p>
+                    </a>
+            </li>
             </ul>
           </li>
 
@@ -211,6 +212,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
               </p>
             </router-link>
           </li>
+          @endcan
 
           <li class="nav-item">
             <router-link to="/profile" class="nav-link">
@@ -269,9 +271,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div>
 <!-- ./wrapper -->
 
-<!-- REQUIRED SCRIPTS -->
+@auth
+<script>
+    window.user=@json(auth()->user())
+</script>
+@endauth
 
-<!-- jQuery -->
 <script src="/js/app.js"></script>
 
 </body>

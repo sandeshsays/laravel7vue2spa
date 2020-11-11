@@ -11,6 +11,9 @@ window.Vue = require('vue');
 import router from './router'
 import moment from 'moment'
 
+import Gate from './Gate'
+Vue.prototype.$gate = new Gate(window.user);
+
 import VueProgressBar from 'vue-progressbar'
 
 Vue.use(VueProgressBar, {
@@ -83,6 +86,11 @@ Vue.component(
 Vue.component(
     'passport-personal-access-tokens',
     require('./components/passport/PersonalAccessTokens.vue').default
+);
+
+Vue.component(
+    'not-found',
+    require('./components/NotFound.vue').default
 );
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);

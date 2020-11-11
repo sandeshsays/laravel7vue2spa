@@ -1,11 +1,10 @@
 <template>
   <div class="container">
-    <div class="row mt-4" v-if='$gate.isSuperadminOrAdmin()'>
+    <div class="row mt-4" v-if="$gate.isSuperadminOrAdmin()">
       <div class="col-12">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Users</h3>
-
             <div class="card-tools">
               <button class="btn btn-success" @click="newModal">
                 Add New <i class="fas fa-user-plus fa-fw"></i>
@@ -26,7 +25,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="user in users" :key="user.id">
+                <tr v-for="user in users.data" :key="user.id">
                   <td>{{ user.id }}</td>
                   <td>{{ user.name | upText }}</td>
                   <td>{{ user.email }}</td>
@@ -45,13 +44,19 @@
             </table>
           </div>
           <!-- /.card-body -->
+          <div class="card-footer">
+            <pagination
+              :data="users"
+              @pagination-change-page="getResults"
+            ></pagination>
+          </div>
         </div>
         <!-- /.card -->
       </div>
     </div>
 
-    <div v-if='!$gate.isSuperadminOrAdmin()'>
-        <not-found></not-found>
+    <div v-if="!$gate.isSuperadminOrAdmin()">
+      <not-found></not-found>
     </div>
 
     <!-- Modal -->
@@ -161,7 +166,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -183,6 +187,12 @@ export default {
     };
   },
   methods: {
+    getResults(page = 1) {
+      axios.get("api/user?page=" + page).then((response) => {
+        this.users = response.data;
+      });
+    },
+
     editModal(user) {
       this.editMode = true;
       this.form.reset();
@@ -221,9 +231,9 @@ export default {
     },
 
     loadUsers() {
-        if(this.$gate.isSuperadminOrAdmin()){
-            axios.get("api/user").then(({ data }) => (this.users = data.data));
-        }
+      if (this.$gate.isSuperadminOrAdmin()) {
+        axios.get("api/user").then(({ data }) => (this.users = data));
+      }
     },
 
     updateUser() {

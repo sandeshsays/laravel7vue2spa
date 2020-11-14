@@ -83961,10 +83961,13 @@ var app = new Vue({
     search: ''
   },
   methods: {
-    searchit: function searchit() {
-      console.log('Searching...');
+    // searchit(){
+    //     console.log('Searching...');
+    //     Fire.$emit("searching");
+    // }
+    searchit: _.debounce(function () {
       Fire.$emit("searching");
-    }
+    }, 1000)
   }
 });
 

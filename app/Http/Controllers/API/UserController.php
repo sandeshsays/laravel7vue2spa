@@ -25,7 +25,7 @@ class UserController extends Controller
     {
         // $this->authorize('isAdmin');
 
-        if(Gate::allows('isAdmin') || Gate::allows('isUser')){
+        if (Gate::allows('isAdmin') || Gate::allows('isUser')) {
             return User::latest()->paginate(5);
         }
     }
@@ -46,12 +46,12 @@ class UserController extends Controller
         ]);
 
         return User::create([
-            'name'=>$request['name'],
-            'email'=>$request['email'],
-            'bio'=>$request['bio'],
-            'password'=>Hash::make($request['password']),
-            'type'=>$request['type'],
-            'photo'=>$request['photo'],
+            'name' => $request['name'],
+            'email' => $request['email'],
+            'bio' => $request['bio'],
+            'password' => Hash::make($request['password']),
+            'type' => $request['type'],
+            'photo' => $request['photo'],
         ]);
     }
 
@@ -107,5 +107,18 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return ['message' => 'User deleted.'];
+    }
+
+    public function search()
+    {
+        if ($search = \Request::get('q')) {
+            $users = User::where(function ($query) use ($search) {
+                $query->where('name', 'LIKE', "%$search%")
+                ->orWhere('email', 'LIKE', "%$search%")
+                ->orWhere('type', 'LIKE', "%$search%");
+            })->paginate(10);
+        }
+
+        return $users;
     }
 }

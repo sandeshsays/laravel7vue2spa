@@ -123,4 +123,8 @@ class UserController extends Controller
 
         return $users;
     }
+
+    public function printme(){
+        return view('invoice');
+    }
 }
